@@ -1,0 +1,20 @@
+# This is the default config file for scheduledledger.
+#
+# 1. rclone
+remotename: Nextcloud
+remotepath: /accounting/
+
+# 2. ledger
+currency: EUR
+
+transactions:
+- rec: Landlord          # the payee
+  dom: 1                 # the day of month on which the transaction is executed
+  amount: 500.00         # the transaction value
+  from: Assets:Checking  # where the money is subtracted from
+  to: Expenses:Home:Rent # where the money is added to
+- rec: ISP
+  dom: 15
+  amount: 29.99
+  from: Assets:Checking
+  to: Expenses:Home
