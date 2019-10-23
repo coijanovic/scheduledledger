@@ -3,6 +3,10 @@ import os.path
 import yaml
 import time
 import subprocess
+from time import gmtime,strftime
+
+def get_timestamp():
+    return strftime("%d/%m/%y %H:%M:%S", gmtime())
 
 if os.path.exists('config.yaml'):
     configfile = 'config.yaml'
@@ -14,7 +18,7 @@ else:
 with open(configfile, 'r') as f:
     try:
         config = yaml.safe_load(f)
-        print("config loaded")
+        print("[{time}] - config loaded".format(time=get_timestamp()))
     except yaml.YAMLError as exc:
         print(exc)
 
@@ -23,16 +27,16 @@ sync_up = "rclone sync data/finance.ledger {rname}:{rpath}".format(rname=config[
 
 def check_for_trans():
     today = time.strftime("%d") 
-    print("checking config")
+    print("[{time}] - checking config".format(time=get_timestamp()))
     with open(configfile, 'r') as f:
         try:
             config = yaml.safe_load(f)
-            print("config reloaded")
+            print("[{time}] - config reloaded".format(time=get_timestamp()))
         except yaml.YAMLError as exc:
             print(exc)
     for t in config['transactions']:
         if str(t['dom']) == str(today):
-            print("Found transaction: {rec}".format(rec=t['rec']))
+            print("[{time}] - Found transaction: {rec}".format(time=get_timestamp(),rec=t['rec']))
             write_transaction(t)
 
 def write_transaction(t):
