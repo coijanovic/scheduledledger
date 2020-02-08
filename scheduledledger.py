@@ -35,7 +35,7 @@ def check_for_trans():
         except yaml.YAMLError as exc:
             print(exc)
     for t in config['transactions']:
-        if t['dom']) == int(today):
+        if t['dom'] == int(today):
             print("[{time}] - Found transaction: {rec}".format(time=get_timestamp(),rec=t['rec']))
             write_transaction(t)
 
