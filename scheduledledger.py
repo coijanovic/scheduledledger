@@ -26,7 +26,7 @@ sync_down = "rclone sync {rname}:{rpath}/finance.ledger data/".format(rname=conf
 sync_up = "rclone sync data/finance.ledger {rname}:{rpath}".format(rname=config['remotename'], rpath=config['remotepath'])
 
 def check_for_trans():
-    today = time.strftime("%d") 
+    today = time.strftime("%e") 
     print("[{time}] - checking config".format(time=get_timestamp()))
     with open(configfile, 'r') as f:
         try:
@@ -35,7 +35,7 @@ def check_for_trans():
         except yaml.YAMLError as exc:
             print(exc)
     for t in config['transactions']:
-        if str(t['dom']) == str(today):
+        if t['dom']) == int(today):
             print("[{time}] - Found transaction: {rec}".format(time=get_timestamp(),rec=t['rec']))
             write_transaction(t)
 
